@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CakeRating</title>
+</head>
+<body>
+  <div class="container">
+      <h1>Rate My Cakes</h1>
+      <form class="form">  
+        <p>Baker's Name:</p>
+        <span style='color:red' *ngIf="!bakerName.valid">Hey! Stop!</span>
+        <input class="input" name="bakerName"[(ngModel)]="newCake.bakerName" #bakerName="ngModel" required minlength="2">
+        <p>Image Url:</p>
+        <span style='color:red' *ngIf="!imgUrl.valid">Where?</span>
+        <input class="input" name="imgUrl"[(ngModel)]="newCake.imgUrl" #imgUrl="ngModel" required>
+        <br>
+        <br>
+        <input *ngIf="bakerName.valid && imgUrl.valid" id="btn" type="submit" (click)="createCake()" value="Send My Cake!">
+        
+      </form>
+
+    <div class="cakes" *ngFor="let cake of allCakes">
+        <h3>Baked by: {{cake.bakerName}} </h3>
+        <img id="cakepics" (click)="getACake(cake._id)" src={{cake.imgUrl}} alt="no picture">
+            <div class="reviewcomp">
+                <app-reviews [cakeToReview]="cake"></app-reviews>
+                <button id="update" (click)="updateACake(cake._id)">Update This Cake</button><br>
+                <button id="delete" (click)="deleteACake(cake._id)">Delete This Cake</button>
+              </div>
+    </div>
+      <app-cake *ngIf="selectedCake"[cakeToShow]="selectedCake"></app-cake>
+    </div>
+</body>
+</html>
+
+<router-outlet></router-outlet>
+
+
+<style>
+.reviewcomp{
+  display: inline-block;
+} 
+#cakepics{
+  width: 300px;
+  height: 300px;
+}
+.container{
+  text-align: center;
+}
+.form{
+  text-align: center;
+  margin-left: 40%;
+  border: 2px solid teal;
+  width: 300px;
+  padding: 10px;
+}
+.input{
+  border: 2px solid black;
+  width: 250px;
+}
+#btn{
+  border: 2px solid black;
+  background-color: teal;
+  color: white;
+  height: 90px;
+  width: 120px;
+}
+#update{
+  border: 2px solid black;
+  background-color: yellow;
+  color: black;
+  height: 45px;
+  width: 120px;
+  margin: 5px;
+}
+#delete{
+  border: 2px solid black;
+  background-color: red;
+  color: white;
+  height: 45px;
+  width: 120px;
+  margin: 5px;
+}
+</style>

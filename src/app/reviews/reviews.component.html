@@ -1,0 +1,46 @@
+<form id="review_form">
+    <p>Stars:</p>
+    <span style='color:red' *ngIf="!stars.valid">Leave some Stars!</span>
+    <select class="input" name="stars" [(ngModel)]="newReview.stars" #stars="ngModel" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <span style='color:red' *ngIf="!comment.valid" #comment="ngModel" required></span>
+    <p>Comment:</p>
+    <input class="comment_input" name="comment" [(ngModel)]="newReview.comment" #comment="ngModel" required><br>
+    <input *ngIf="stars.valid && comment.valid" type="submit" (click)="postRating()" id="revbtn">
+</form>
+ <div class="all_reviews" *ngFor="let rev of postRating">
+    <h3>Stars: {{rev.stars}} </h3>
+    <h3>Stars: {{rev.comments}} </h3>
+ </div>
+
+
+
+<style>
+#review_form{
+  margin: 10px;
+  display: top;
+}
+#revbtn{
+  border: 2px solid black;
+  background-color: green;
+  color: white;
+  height: 45px;
+  width: 120px;
+  margin-top: 10px;
+  
+}
+.input{
+  border: 2px solid black;
+}
+.comment_input{
+  border: 2px solid black;
+  width: 200px;
+  height: 50px;
+}
+</style>
